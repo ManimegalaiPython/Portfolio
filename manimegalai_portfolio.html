@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P. Manimegalai — AWS & DevOps | Full Stack Python Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf7f2;
+    --cream: #f5f0e8;
+    --cream2: #ede6d6;
+    --navy: #1a2744;
+    --navy2: #243057;
+    --navy3: #2e3d6e;
+    --gold: #b8924a;
+    --gold2: #d4aa6a;
+    --text: #1a2744;
+    --muted: #6b7280;
+    --muted2: #9ca3af;
+    --border: rgba(26,39,68,0.1);
+    --border2: rgba(26,39,68,0.18);
+    --white: #ffffff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 80% 10%, rgba(184,146,74,0.07) 0%, transparent 50%),radial-gradient(circle at 10% 90%, rgba(26,39,68,0.05) 0%, transparent 50%);pointer-events:none;z-index:0}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(250,247,242,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+  .nav-logo{font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;color:var(--navy)}
+  .nav-logo span{color:var(--gold)}
+  .nav-links{display:flex;gap:2.5rem}
+  .nav-links a{color:var(--muted);font-size:0.82rem;text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;transition:color 0.2s}
+  .nav-links a:hover{color:var(--navy)}
+  .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 5rem 5rem;position:relative;z-index:1;max-width:1280px;margin:0 auto;gap:4rem}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1.5rem}
+  .hero-badge::before{content:'';display:block;width:24px;height:1px;background:var(--gold)}
+  h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:900;line-height:1.05;letter-spacing:-1px;color:var(--navy);margin-bottom:0.5rem}
+  h1 .role{display:block;font-size:clamp(1.4rem,2.5vw,2rem);font-weight:400;color:var(--gold);font-style:italic;margin-top:0.4rem}
+  .hero-desc{font-size:1rem;color:var(--muted);max-width:460px;margin:1.5rem 0 2.5rem;font-weight:400;line-height:1.8}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{padding:13px 30px;background:var(--navy);color:var(--cream);border-radius:6px;text-decoration:none;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;transition:all 0.2s;border:2px solid var(--navy);font-family:'Nunito',sans-serif}
+  .btn-primary:hover{background:var(--navy2);transform:translateY(-2px)}
+  .btn-outline{padding:13px 30px;background:transparent;color:var(--navy);border-radius:6px;text-decoration:none;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;border:2px solid var(--border2);transition:all 0.2s}
+  .btn-outline:hover{border-color:var(--navy);transform:translateY(-2px)}
+  .hero-right{background:var(--navy);border-radius:20px;padding:2.5rem;position:relative;overflow:hidden}
+  .hero-right::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(184,146,74,0.12)}
+  .hero-right::after{content:'';position:absolute;bottom:-60px;left:-40px;width:160px;height:160px;border-radius:50%;background:rgba(184,146,74,0.07)}
+  .profile-initial{width:72px;height:72px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--navy);margin-bottom:1.5rem;position:relative;z-index:1}
+  .profile-name{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:4px;position:relative;z-index:1}
+  .profile-title{font-size:0.82rem;color:var(--gold2);margin-bottom:2rem;position:relative;z-index:1;letter-spacing:0.05em}
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;position:relative;z-index:1}
+  .stat-box{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:1rem}
+  .stat-box .val{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--gold2);line-height:1}
+  .stat-box .lbl{font-size:0.75rem;color:rgba(255,255,255,0.5);margin-top:4px;text-transform:uppercase;letter-spacing:0.08em}
+  .availability{margin-top:1.5rem;padding:0.9rem 1rem;background:rgba(184,146,74,0.15);border:1px solid rgba(184,146,74,0.25);border-radius:10px;display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+  .avail-dot{width:8px;height:8px;border-radius:50%;background:#4ade80;flex-shrink:0;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  .availability span{font-size:0.8rem;color:var(--gold2);font-weight:600}
+  section{position:relative;z-index:1;padding:6rem 5rem;max-width:1280px;margin:0 auto}
+  .section-eyebrow{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;font-weight:700;display:flex;align-items:center;gap:10px}
+  .section-eyebrow::after{content:'';flex:0 0 32px;height:1px;background:var(--gold)}
+  h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;letter-spacing:-0.5px;color:var(--navy);margin-bottom:3rem;line-height:1.15}
+  h2 em{font-style:italic;color:var(--gold);font-weight:400}
+  .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);position:relative;z-index:1}
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem}
+  .skill-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:all 0.25s;border-top:3px solid transparent}
+  .skill-card:hover{transform:translateY(-4px);border-top-color:var(--gold);box-shadow:0 12px 40px rgba(26,39,68,0.08)}
+  .skill-card h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:1rem}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:0.72rem;padding:4px 10px;border-radius:20px;font-weight:600}
+  .tag.navy{background:#eef0f7;color:var(--navy3);border:1px solid rgba(46,61,110,0.15)}
+  .tag.gold{background:#fdf6ec;color:#8a6830;border:1px solid rgba(184,146,74,0.25)}
+  .tag.warm{background:#f9f3ec;color:#7a5c30;border:1px solid rgba(184,146,74,0.2)}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+  .proj-card{background:var(--white);border:1px solid var(--border);border-radius:18px;overflow:hidden;transition:all 0.25s}
+  .proj-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(26,39,68,0.1)}
+  .proj-top{padding:1.75rem 2rem;background:linear-gradient(135deg,var(--navy) 0%,var(--navy3) 100%);position:relative;overflow:hidden}
+  .proj-top::after{content:'';position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:rgba(184,146,74,0.15)}
+  .proj-num{position:absolute;top:1.25rem;right:1.5rem;font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;color:rgba(255,255,255,0.08);line-height:1}
+  .proj-type{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold2);margin-bottom:0.5rem;font-weight:600}
+  .proj-top h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:0.5rem}
+  .proj-top p{font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.6}
+  .proj-body{padding:1.5rem 2rem}
+  .proj-stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
+  .proj-links{display:flex;gap:0.75rem;flex-wrap:wrap}
+  .plink{font-size:0.78rem;padding:8px 16px;border-radius:8px;text-decoration:none;transition:all 0.2s;font-weight:600;display:inline-flex;align-items:center;gap:5px;font-family:'Nunito',sans-serif}
+  .plink.solid{background:var(--navy);color:#fff}
+  .plink.solid:hover{background:var(--navy2)}
+  .plink.ghost{border:1.5px solid var(--border2);color:var(--muted)}
+  .plink.ghost:hover{border-color:var(--navy);color:var(--navy)}
+  .layouts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem}
+  .layout-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.25rem;text-align:center;text-decoration:none;transition:all 0.22s;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .layout-card:hover{border-color:var(--gold);transform:translateY(-3px);background:var(--cream)}
+  .layout-card .ico{width:40px;height:40px;border-radius:10px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+  .layout-card strong{font-size:0.82rem;color:var(--navy);font-weight:700}
+  .layout-card span{font-size:0.73rem;color:var(--muted2);line-height:1.4}
+  .timeline{display:flex;flex-direction:column}
+  .timeline-item{display:grid;grid-template-columns:200px 1fr;gap:3rem;padding:2.5rem 0;border-bottom:1px solid var(--border)}
+  .timeline-item:last-child{border:none}
+  .t-date{font-size:0.78rem;color:var(--muted);font-weight:400;display:flex;flex-direction:column;gap:4px;padding-top:4px}
+  .t-date strong{font-size:0.9rem;color:var(--navy);font-weight:700;font-family:'Playfair Display',serif}
+  .t-right h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+  .t-company{font-size:0.82rem;color:var(--gold);font-weight:600;margin-bottom:1rem;letter-spacing:0.03em}
+  .t-right ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+  .t-right li{font-size:0.875rem;color:var(--muted);padding-left:1.25rem;position:relative;line-height:1.6}
+  .t-right li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:0.8rem}
+  .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  .contact-items{display:flex;flex-direction:column;gap:1rem}
+  .c-item{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;background:var(--white);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all 0.2s}
+  .c-item:hover{border-color:var(--gold);transform:translateX(5px)}
+  .c-ico{width:40px;height:40px;border-radius:10px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0;color:var(--navy);font-weight:700;font-family:'Playfair Display',serif}
+  .c-detail strong{display:block;font-size:0.85rem;color:var(--navy);font-weight:700}
+  .c-detail span{font-size:0.78rem;color:var(--muted)}
+  .cta-box{background:var(--navy);border-radius:18px;padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+  .cta-box::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:rgba(184,146,74,0.12)}
+  .cta-box h3{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:0.75rem;position:relative;z-index:1}
+  .cta-box p{font-size:0.875rem;color:rgba(255,255,255,0.55);margin-bottom:2rem;position:relative;z-index:1;line-height:1.7}
+  .btn-gold{display:inline-block;padding:13px 28px;background:var(--gold);color:var(--navy);border-radius:8px;text-decoration:none;font-size:0.85rem;font-weight:700;letter-spacing:0.04em;transition:all 0.2s;position:relative;z-index:1;font-family:'Nunito',sans-serif}
+  .btn-gold:hover{background:var(--gold2);transform:translateY(-2px)}
+  .certs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem}
+  .cert-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:1.25rem 1.5rem}
+  .cert-card h4{font-size:0.92rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+  .cert-card span{font-size:0.78rem;color:var(--muted)}
+  footer{text-align:center;padding:3rem 5rem;border-top:1px solid var(--border);font-size:0.8rem;color:var(--muted);position:relative;z-index:1;background:var(--cream)}
+  .footer-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:0.4rem}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .hero-left > *{animation:fadeUp 0.7s ease both}
+  .hero-badge{animation-delay:0.1s}
+  .hero-left h1{animation-delay:0.2s}
+  .hero-desc{animation-delay:0.3s}
+  .hero-cta{animation-delay:0.4s}
+  .hero-right{animation:fadeUp 0.7s ease 0.3s both}
+  @media(max-width:900px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem;gap:2rem}section{padding:4rem 1.5rem}.timeline-item{grid-template-columns:1fr;gap:0.5rem}.contact-wrap{grid-template-columns:1fr}footer{padding:2rem 1.5rem}}
+  ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--navy);border-radius:2px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">P.<span>M</span>animegalai</div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#layouts">Layouts</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Available for hire</div>
+    <h1>
+      P. Manimegalai
+      <span class="role">AWS · DevOps · Full Stack</span>
+    </h1>
+    <p class="hero-desc">Cloud infrastructure engineer and full-stack Python developer with hands-on experience in AWS, CI/CD pipelines, Docker, Kubernetes, Django, and React.js. Based in Tamil Nadu, India.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="mailto:manimegalaimecse22@gmail.com" class="btn-outline">Contact Me</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="profile-initial">PM</div>
+    <div class="profile-name">P. Manimegalai</div>
+    <div class="profile-title">AWS & DevOps Engineer · Full Stack Python Developer</div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="val">3+</div><div class="lbl">Years exp</div></div>
+      <div class="stat-box"><div class="val">20+</div><div class="lbl">Tech skills</div></div>
+      <div class="stat-box"><div class="val">15+</div><div class="lbl">Projects</div></div>
+      <div class="stat-box"><div class="val">M.E.</div><div class="lbl">CS Degree</div></div>
+    </div>
+    <div class="availability">
+      <div class="avail-dot"></div>
+      <span>Open to opportunities — immediate joiner</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="skills">
+  <div class="section-eyebrow">Technical expertise</div>
+  <h2>Skills &amp; <em>Technologies</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>☁ Cloud — AWS</h3>
+      <div class="tags">
+        <span class="tag navy">EC2</span><span class="tag navy">S3</span><span class="tag navy">IAM</span>
+        <span class="tag navy">VPC</span><span class="tag navy">RDS</span><span class="tag navy">ELB</span>
+        <span class="tag navy">Route53</span><span class="tag navy">CloudWatch</span>
+        <span class="tag navy">Lambda</span><span class="tag navy">CloudFront</span>
+        <span class="tag navy">SQS</span><span class="tag navy">Glue</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>⚙ DevOps & CI/CD</h3>
+      <div class="tags">
+        <span class="tag gold">Jenkins</span><span class="tag gold">Docker</span>
+        <span class="tag gold">Kubernetes</span><span class="tag gold">Terraform</span>
+        <span class="tag gold">Ansible</span><span class="tag gold">Maven</span>
+        <span class="tag gold">Git</span><span class="tag gold">GitHub</span>
+        <span class="tag gold">Bamboo</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>🐍 Full Stack Python</h3>
+      <div class="tags">
+        <span class="tag warm">Python</span><span class="tag warm">Django</span>
+        <span class="tag warm">Flask</span><span class="tag warm">DRF</span>
+        <span class="tag warm">React.js</span><span class="tag warm">JavaScript</span>
+        <span class="tag warm">HTML5</span><span class="tag warm">CSS3</span>
+        <span class="tag warm">Bootstrap</span><span class="tag warm">MySQL</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <h3>🤖 AI/ML & Scripting</h3>
+      <div class="tags">
+        <span class="tag navy">AI/ML Integration</span>
+        <span class="tag navy">REST APIs</span>
+        <span class="tag navy">Shell Scripting</span>
+        <span class="tag navy">YAML</span>
+        <span class="tag navy">Linux</span>
+        <span class="tag navy">Windows</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <div class="section-eyebrow">Built & deployed</div>
+  <h2>Full Stack <em>Projects</em></h2>
+  <div class="projects-grid">
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-num">01</div>
+        <div class="proj-type">E-Commerce · Full Stack</div>
+        <h3>Baby Products Store</h3>
+        <p>E-commerce platform with product listings, cart, admin panel, and REST API. Live on Vercel + PythonAnywhere.</p>
+      </div>
+      <div class="proj-body">
+        <div class="proj-stack"><span class="tag navy">Django</span><span class="tag navy">React.js</span><span class="tag gold">REST API</span><span class="tag gold">MySQL</span><span class="tag warm">Vercel</span></div>
+        <div class="proj-links">
+          <a href="https://baby-products-9hl7.vercel.app/" target="_blank" class="plink solid">↗ Live Demo</a>
+          <a href="https://manimegalaipython.pythonanywhere.com/api/" target="_blank" class="plink ghost">API</a>
+          <a href="https://github.com/ManimegalaiPython/Baby-products/blob/main/src/App.jsx" target="_blank" class="plink ghost">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-num">02</div>
+        <div class="proj-type">HR Management · Full Stack</div>
+        <h3>Employee Management System</h3>
+        <p>HRMS with roles, authentication, admin panel, REST API and multi-role login (admin/user/superuser).</p>
+      </div>
+      <div class="proj-body">
+        <div class="proj-stack"><span class="tag navy">Django</span><span class="tag navy">React.js</span><span class="tag gold">REST API</span><span class="tag gold">JWT Auth</span><span class="tag warm">MySQL</span></div>
+        <div class="proj-links">
+          <a href="https://employee-management-sysytem-qzj9.vercel.app/" target="_blank" class="plink solid">↗ Live Demo</a>
+          <a href="https://manipraveen.pythonanywhere.com/api/" target="_blank" class="plink ghost">API</a>
+          <a href="https://github.com/ManimegalaiPython/Employee-management-sysytem/blob/main/src/App.jsx" target="_blank" class="plink ghost">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-num">03</div>
+        <div class="proj-type">E-Commerce · Django</div>
+        <h3>Cosmetics E-Commerce</h3>
+        <p>Django-powered cosmetics store with product catalog, cart, and full backend admin on PythonAnywhere.</p>
+      </div>
+      <div class="proj-body">
+        <div class="proj-stack"><span class="tag navy">Django</span><span class="tag gold">MySQL</span><span class="tag warm">Bootstrap</span><span class="tag warm">PythonAnywhere</span></div>
+        <div class="proj-links">
+          <a href="https://manimegalaipython.pythonanywhere.com/" target="_blank" class="plink solid">↗ Live Demo</a>
+          <a href="https://github.com/ManimegalaiPython/cosmetics-ecommerce-website/blob/main/cosmetics/store/views.py" target="_blank" class="plink ghost">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-num">04</div>
+        <div class="proj-type">JavaScript · 18+ Projects</div>
+        <h3>JavaScript Mini Projects</h3>
+        <p>18+ mini-projects covering DOM manipulation, event handling, async JS, and modern ES6+ features.</p>
+      </div>
+      <div class="proj-body">
+        <div class="proj-stack"><span class="tag navy">JavaScript</span><span class="tag navy">HTML5</span><span class="tag gold">CSS3</span><span class="tag gold">ES6+</span></div>
+        <div class="proj-links">
+          <a href="https://manimegalaipython.github.io/Javascript-Miniprojects/allminiproject18.html" target="_blank" class="plink solid">↗ Live Demo</a>
+          <a href="https://github.com/ManimegalaiPython/Javascript-Miniprojects/" target="_blank" class="plink ghost">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-num">05</div>
+        <div class="proj-type">React.js · Progressive Series</div>
+        <h3>React Task Series (Day 3–8)</h3>
+        <p>Progressive React projects covering hooks, state management, props, routing, and component architecture.</p>
+      </div>
+      <div class="proj-body">
+        <div class="proj-stack"><span class="tag navy">React.js</span><span class="tag gold">Hooks</span><span class="tag gold">useState</span><span class="tag warm">Vercel</span></div>
+        <div class="proj-links">
+          <a href="https://react-day8-ochre.vercel.app/" target="_blank" class="plink solid">↗ Day 8</a>
+          <a href="https://react-day7-tm6e.vercel.app/" target="_blank" class="plink ghost">Day 7</a>
+          <a href="https://github.com/ManimegalaiPython" target="_blank" class="plink ghost">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-num">06</div>
+        <div class="proj-type">Assessment · Full Stack UI</div>
+        <h3>Overall Task Assessment</h3>
+        <p>Comprehensive assessment covering multi-tab UI, dynamic data rendering, and complete frontend architecture.</p>
+      </div>
+      <div class="proj-body">
+        <div class="proj-stack"><span class="tag navy">HTML5</span><span class="tag navy">CSS3</span><span class="tag gold">JavaScript</span><span class="tag warm">Multi-tab UI</span></div>
+        <div class="proj-links">
+          <a href="https://manimegalaipython.github.io/overalltask/ui-task/Alltask.html" target="_blank" class="plink solid">↗ Demo</a>
+          <a href="https://manimegalaipython.github.io/overalltask/alltask.html#tab1" target="_blank" class="plink ghost">Alt Demo</a>
+          <a href="https://github.com/ManimegalaiPython/overalltask/" target="_blank" class="plink ghost">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="layouts">
+  <div class="section-eyebrow">UI/UX Design Work</div>
+  <h2>Layout <em>Projects</em></h2>
+  <div class="layouts-grid">
+    <a href="https://manimegalaipython.github.io/Realestate-Website/home.html" target="_blank" class="layout-card"><div class="ico">🏠</div><strong>Real Estate</strong><span>Property listings & search UI</span></a>
+    <a href="https://manimegalaipython.github.io/Saloon-Booking-Website/index.html" target="_blank" class="layout-card"><div class="ico">✂</div><strong>Saloon Booking</strong><span>Appointments & services</span></a>
+    <a href="https://manimegalaipython.github.io/Student-Management-System/index.html" target="_blank" class="layout-card"><div class="ico">🎓</div><strong>Student Management</strong><span>Records & grades admin</span></a>
+    <a href="https://manimegalaipython.github.io/Charity-Website/" target="_blank" class="layout-card"><div class="ico">❤</div><strong>Charity Website</strong><span>Donation platform + login</span></a>
+    <a href="https://manimegalaipython.github.io/Ration-Card-Application/home.html" target="_blank" class="layout-card"><div class="ico">📋</div><strong>Ration Card App</strong><span>Government portal UI</span></a>
+    <a href="https://manimegalaipython.github.io/Fashion-Website/index.html" target="_blank" class="layout-card"><div class="ico">👗</div><strong>Fashion Website</strong><span>E-commerce product grid</span></a>
+    <a href="https://manimegalaipython.github.io/Airpods-Website/Airpods%20Website/index.html" target="_blank" class="layout-card"><div class="ico">🎧</div><strong>Airpods Website</strong><span>Product landing page</span></a>
+    <a href="https://manimegalaipython.github.io/Dessert-Shop/about.html" target="_blank" class="layout-card"><div class="ico">🍰</div><strong>Dessert Shop</strong><span>Food menu & visual cards</span></a>
+    <a href="https://manimegalaipython.github.io/Grocery-Websites/home1.html" target="_blank" class="layout-card"><div class="ico">🛒</div><strong>Grocery Website</strong><span>Category browsing & cart</span></a>
+    <a href="https://manimegalaipython.github.io/Restaurant-Website/home.html" target="_blank" class="layout-card"><div class="ico">🍽</div><strong>Restaurant Website</strong><span>Menu showcase & reservations</span></a>
+    <a href="https://manimegalaipython.github.io/Fitness-Websites/home1.html" target="_blank" class="layout-card"><div class="ico">💪</div><strong>Fitness Website</strong><span>Workout plans & trainers</span></a>
+    <a href="https://manimegalaipython.github.io/Tech-Product-Websites/home.html" target="_blank" class="layout-card"><div class="ico">💻</div><strong>Tech Products</strong><span>Spec showcase & comparison</span></a>
+    <a href="https://manimegalaipython.github.io/layouts/Blood%20and%20Organ%20Donor/files/home.html" target="_blank" class="layout-card"><div class="ico">🩸</div><strong>Blood & Organ Donor</strong><span>Healthcare donor portal</span></a>
+    <a href="https://manimegalaipython.github.io/Makeover-Artist-Layout/Layout%20project/Layout%20project/Make%20OverArtist/index.html" target="_blank" class="layout-card"><div class="ico">💄</div><strong>Makeover Artist</strong><span>Beauty services portfolio</span></a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="experience">
+  <div class="section-eyebrow">Career journey</div>
+  <h2>Work <em>Experience</em></h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="t-date"><strong>Oct 2025 – Mar 2026</strong>Theni & Surandai, Tamil Nadu</div>
+      <div class="t-right">
+        <h3>Full Stack Python Developer Intern</h3>
+        <div class="t-company">Vetri IT Systems</div>
+        <ul>
+          <li>Built full-stack web apps using Django, React.js, HTML5, CSS3, Bootstrap, MySQL</li>
+          <li>Integrated AI/ML models into production web applications</li>
+          <li>Built & deployed REST APIs using Django REST Framework</li>
+          <li>Designed responsive, mobile-friendly UI with Bootstrap & JavaScript</li>
+          <li>Covered complete SDLC — requirements to deployment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-date"><strong>Jul 2023 – Aug 2024</strong>Trichy, India</div>
+      <div class="t-right">
+        <h3>AWS & DevOps Engineer</h3>
+        <div class="t-company">SSINTEK · eCommerce Domain (Telstra)</div>
+        <ul>
+          <li>Managed Git repositories — branching, merging, tagging, version control</li>
+          <li>Administered IAM users, groups, roles for EC2, RDS, S3, CloudWatch, EBS</li>
+          <li>Automated CI/CD pipelines using Jenkins + Maven for Java projects</li>
+          <li>Configured Ansible playbooks & reusable roles for infrastructure provisioning</li>
+          <li>Deployed containerized apps with Docker; orchestrated using Kubernetes</li>
+          <li>Provisioned AWS infrastructure via Terraform (EC2, security groups, VPC)</li>
+          <li>Set up CloudFront CDN, CloudWatch monitoring & RDS database management</li>
+        </ul>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-date"><strong>Aug 2017 – Nov 2019</strong>Chennai, India</div>
+      <div class="t-right">
+        <h3>Customer Support Executive</h3>
+        <div class="t-company">iSON Xperiences India Pvt. Ltd. · Networking Domain</div>
+        <ul>
+          <li>Resolved technical issues via phone, email, chat in high-volume environment</li>
+          <li>Maintained SLA compliance and improved first-call resolution rates</li>
+          <li>Escalated complex issues to Tier-2 teams; managed CRM entries</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-eyebrow">Qualifications</div>
+  <h2>Education & <em>Certifications</em></h2>
+  <div class="certs-grid">
+    <div class="cert-card"><h4>M.E. Computer Science & Engineering</h4><span>K. Ramakrishnan College of Technology, Trichy · 2016</span></div>
+    <div class="cert-card"><h4>B.E. Computer Science & Engineering</h4><span>Excel College of Technology, Namakkal · 2014</span></div>
+    <div class="cert-card"><h4>AI Python Full Stack Development (with Internship)</h4><span>Vetri IT Systems · Oct 2025 – Mar 2026 · Completed</span></div>
+    <div class="cert-card"><h4>AWS & DevOps Engineer — Course Completion</h4><span>Hands-on: AWS, CI/CD, Docker, Kubernetes, Ansible · 2022</span></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="section-eyebrow">Get in touch</div>
+  <h2>Let's <em>Connect</em></h2>
+  <div class="contact-wrap">
+    <div class="contact-items">
+      <a href="mailto:manimegalaimecse22@gmail.com" class="c-item"><div class="c-ico">@</div><div class="c-detail"><strong>Email</strong><span>manimegalaimecse22@gmail.com</span></div></a>
+      <a href="tel:+917373634493" class="c-item"><div class="c-ico">☎</div><div class="c-detail"><strong>Phone</strong><span>+91-7373634493</span></div></a>
+      <a href="https://linkedin.com/in/manimegalai-p-538824276" target="_blank" class="c-item"><div class="c-ico">in</div><div class="c-detail"><strong>LinkedIn</strong><span>manimegalai-p-538824276</span></div></a>
+      <a href="https://github.com/ManimegalaiPython" target="_blank" class="c-item"><div class="c-ico">GH</div><div class="c-detail"><strong>GitHub</strong><span>ManimegalaiPython · 15+ repositories</span></div></a>
+    </div>
+    <div class="cta-box">
+      <div>
+        <h3>Open to New Opportunities</h3>
+        <p>Actively seeking Junior DevOps Engineer, AWS Cloud Engineer, and Full Stack Python Developer roles in India and remote. Available to join immediately.</p>
+      </div>
+      <a href="https://github.com/ManimegalaiPython" target="_blank" class="btn-gold">View GitHub Profile →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">P. Manimegalai</div>
+  <p>AWS & DevOps Engineer · Full Stack Python Developer · Tamil Nadu, India</p>
+  <p style="margin-top:0.5rem;font-size:0.72rem;color:#9ca3af">Built with HTML, CSS & JavaScript · 2026</p>
+</footer>
+
+</body>
+</html>
